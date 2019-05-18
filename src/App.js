@@ -4,6 +4,11 @@ import FullPage from './components/FullPage';
 var scrollInProgress = false;
 class App extends React.Component{
 
+	state={
+		touchStartPoint:0,
+		touchEndPoint:0
+	}
+
 	resetScroll=()=>{
 		scrollInProgress=false;
 	}
@@ -24,6 +29,20 @@ class App extends React.Component{
 		
 	}
 
+	touched = (e)=>{
+		this.setState({touchStartPoint:e.changedTouches[0].clientY});
+	}
+	touchfinished=(e)=>{
+		this.setState({touchEndPoint:e.changedTouches[0].clientY},()=>{
+			if((this.state.touchEndPoint-this.state.touchStartPoint)>0){				
+				window.scrollBy({top:window.innerHeight*-1,left:0,behavior:'smooth'})
+			}else if((this.state.touchEndPoint-this.state.touchStartPoint)<0){
+				
+				window.scrollBy({top:window.innerHeight,left:0,behavior:'smooth'})
+			}
+		});
+	}
+
 	componentDidMount() {
 		window.addEventListener('wheel', this.scrolling,{passive: false});
 	}
@@ -35,7 +54,7 @@ class App extends React.Component{
 
 	render() {
 		return (
-			<div className="App" onTouchStart={this.scrolling}>
+			<div className="App" onTouchStart={this.touched} onTouchEnd={this.touchfinished}>
 				
 				<FullPage bgcolor="#FF5500">
 					<label>Testing</label>
