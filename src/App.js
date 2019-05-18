@@ -34,18 +34,16 @@ class App extends React.Component{
 
 
 	render() {
-		var ref1=React.createRef();
-		var ref2=React.createRef();
 		return (
 			<div className="App" onTouchStart={this.scrolling}>
 				
-				<FullPage ref={ref1} bgcolor="#FF5500">
+				<FullPage bgcolor="#FF5500">
 					<label>Testing</label>
 				</FullPage>
-				<FullPage ref={ref2} bgcolor="#55FF00">
+				<FullPage bgcolor="#55FF00">
 					<label>Testing Number TWO</label>
 				</FullPage>
-				<FullPage ref={ref2} bgcolor="#0055ff">
+				<FullPage bgcolor="#0055ff">
 					<label>Testing Number Three</label>
 				</FullPage>
 			</div>
